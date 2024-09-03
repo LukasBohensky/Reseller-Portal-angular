@@ -1,6 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 @import "./styles/example.css";
 
-html, body {
-    margin: 20px;
-}
+body {
+    margin: 0;
+  
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  }
+  :root {
+    --sidenav-width: 300px;
+  }
