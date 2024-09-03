@@ -1,0 +1,14 @@
+/* Styles for the home page */
+  
+  h1, h3 {
+    font-weight: bold;
+  }
+  
+  section .col-md-4 img {
+    max-width: 80px;
+  }
+  
+  footer a {
+    text-decoration: underline;
+  }
+  
