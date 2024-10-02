@@ -6,7 +6,7 @@
   }
   
   .sidenav {
-    height: 100vh;
+    height: 100%;
     width: var(--sidenav-width);
   
     box-sizing: border-box;
