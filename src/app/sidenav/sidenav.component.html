@@ -1,25 +1,28 @@
 <mat-sidenav-container>
   <mat-sidenav-content>
-        <mat-nav-list><br><br><br><br>
+        <mat-nav-list><br><br><br><br><br><br>
           <app-sidenav-links routerLink="/home">
-            <button mat-fab>
+            <button mat-fab class="sidenavButton">
               <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home" >
               </mat-icon>
             </button>
           </app-sidenav-links><br><br><br><br>
 
           <app-sidenav-links routerLink="/store">
-            <button mat-fab>
+            <button mat-fab class="sidenavButton">
               <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="shopping_cart"></mat-icon>
             </button>
           </app-sidenav-links><br><br><br><br>
 
           <app-sidenav-links routerLink="/about">
-            <button mat-fab><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="description"></mat-icon></button>
+            <button mat-fab class="sidenavButton">
+              <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="description">
+              </mat-icon>
+            </button>
           </app-sidenav-links><br><br><br><br>
           
           <app-sidenav-links routerLink="/profile">
-            <button mat-fab><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="account_circle"></mat-icon></button>
+            <button mat-fab class="sidenavButton"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="account_circle"></mat-icon></button>
           </app-sidenav-links>
         </mat-nav-list>
       </mat-sidenav-content>

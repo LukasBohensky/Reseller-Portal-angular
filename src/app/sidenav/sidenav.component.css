@@ -1,7 +1,7 @@
 mat-sidenav-container {
   box-shadow: 0 2px 20px 0;
   height: 200vh;
-  width: 10vh;
+  width: 13vh;
 
   box-sizing: border-box;
 
@@ -9,5 +9,6 @@ mat-sidenav-container {
   top: 0;
 }
 app-sidenav-links {
-  margin-left: 25%;
+  margin: 20%;
+  margin-top: 0;
 }
