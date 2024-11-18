@@ -20,17 +20,9 @@
                  required>
         </mat-form-field>
         <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-button matStepperPrevious>Zurück</button>
+          <button mat-button (click)="onSave()">Fertigstellen</button>
         </div>
       </form>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      <p>You are now done.</p>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
-      </div>
     </mat-step>
   </mat-stepper>
