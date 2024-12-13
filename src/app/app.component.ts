@@ -12,6 +12,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from "@angular/material/icon";
 import { CommonModule } from '@angular/common';
 import { NgxPaypalComponent, NgxPayPalModule } from 'ngx-paypal';
+
 @Component({
   selector: 'app-root',
   standalone: true,
