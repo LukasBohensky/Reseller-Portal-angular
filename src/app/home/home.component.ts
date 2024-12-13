@@ -11,8 +11,7 @@ export interface Instance {
   address: string;
 }
 
-const INSTANCE_DATA: Instance[] = [
-];
+const INSTANCE_DATA: Instance[] = [];
 
 
 @Component({
@@ -25,16 +24,38 @@ const INSTANCE_DATA: Instance[] = [
 export class HomeComponent {
   constructor(private sharedService: SharedService) {}
 
-  displayedColumns: string[] = ['id', 'name', 'address'];
+  displayedColumns: string[] = ['id', 'name', 'address', 'actions'];
   dataSource = INSTANCE_DATA;
 
   formValues: any;
   ngOnInit() {
+    let found = false;
+    let i = 0;
     this.sharedService.currentFormValues.subscribe(values => {
-      this.formValues = values;
-    });
-    
-    INSTANCE_DATA.push()
+      if (values.first && values.second) {
+        const Instance: Instance = {
+          id: id++,
+          name: values.first,
+          address: values.second
+        }
+        while (!found && INSTANCE_DATA.length > i) {
+          if (INSTANCE_DATA.length > i) {
+            if (INSTANCE_DATA[i].name === values.first && INSTANCE_DATA[i].address === values.second) {
+              found = true;
+          }
+          i++;
+        }}
+        i = 0;
+        if (!found) {
+          INSTANCE_DATA.push(Instance);
+        } 
+      this.dataSource = [...INSTANCE_DATA];
+    }});
+  }
+
+  deleteRow(instance: any): void {
+    // Remove the row from the dataSource
+    this.dataSource = this.dataSource.filter(item => item !== instance);
   }
 }
 

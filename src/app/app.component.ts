@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from "@angular/material/icon";
 import { CommonModule } from '@angular/common';
+import { NgxPaypalComponent, NgxPayPalModule } from 'ngx-paypal';
 @Component({
   selector: 'app-root',
   standalone: true,
