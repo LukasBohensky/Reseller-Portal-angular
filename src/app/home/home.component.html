@@ -1,9 +1,4 @@
-<h1>Dashboard</h1>
-<div *ngIf="formValues">
-    <h2>Received Values:</h2>
-    <p>First Value: {{ formValues.first }}</p>
-    <p>Second Value: {{ formValues.second }}</p>
-  </div>
+<button>Dashboard</button>
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
@@ -26,6 +21,13 @@
     <ng-container matColumnDef="address">
       <th mat-header-cell *matHeaderCellDef> Addresse </th>
       <td mat-cell *matCellDef="let instance"> {{instance.address}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let instance">
+        <button id="deletebtn" mat-button (click)="deleteRow(instance)">Delete</button>
+      </td>
     </ng-container>
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
