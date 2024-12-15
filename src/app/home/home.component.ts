@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SharedService } from '../shared.service'; 
+import { SharedService } from '../shared/shared.service'; 
 import { CommonModule } from '@angular/common';
 import {MatTableModule} from '@angular/material/table';
 
