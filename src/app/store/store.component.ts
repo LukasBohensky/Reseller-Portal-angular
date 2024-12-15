@@ -19,6 +19,12 @@ import { NgIf } from '@angular/common';
   ICreateOrderRequest,
 } from 'ngx-paypal';*/
 
+interface RequestData {
+  name: string;
+  adress: string;
+}
+
+
 @Component({
   selector: 'app-store',
   standalone: true,
@@ -36,6 +42,7 @@ import { NgIf } from '@angular/common';
   styleUrl: './store.component.css',
 })
 export class StoreComponent {
+
   showPayment?: boolean;
 
   firstFormGroup!: FormGroup;
@@ -66,7 +73,31 @@ export class StoreComponent {
         first: this.firstFormGroup.value.firstCtrl,
         second: this.secondFormGroup.value.secondCtrl,
       };
+      const data: RequestData = {
+        name: this.firstFormGroup.value.firstCtrl,
+        adress: this.secondFormGroup.value.secondCtrl
+      }
 
+      const sendPostRequest = async (): Promise<void> => {
+        try {
+            const response = await fetch('http://localhost:3000/instances/data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+    
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            //const result: ResponseData = await response.json(); // Parse JSON response as ResponseData
+            //console.log('Response from server:', await response.json());
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+    sendPostRequest();
       this.sharedService.updateFormValues(formValues);
       console.log('Form Submitted!', formValues);
     }

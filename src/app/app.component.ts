@@ -12,15 +12,17 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from "@angular/material/icon";
 import { CommonModule } from '@angular/common';
 import { NgxPaypalComponent, NgxPayPalModule } from 'ngx-paypal';
+import { LoginComponent } from "./login/login.component";
+import { FooterComponent } from './footer/footer.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SidenavComponent, RouterModule, MatTooltipModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatCommonModule, MatIconModule, CommonModule],
+  imports: [RouterOutlet, FooterComponent, SidenavComponent, RouterModule, MatTooltipModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatCommonModule, MatIconModule, CommonModule, LoginComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'Reseller Portal';
-
+  isLoggin: boolean = false;
 }
