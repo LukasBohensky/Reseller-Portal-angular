@@ -1,6 +1,17 @@
 
 <div class="content">
-    hallo
-    <app-sidenav></app-sidenav>
-    <router-outlet></router-outlet>
+    <div *ngIf="isLogin">
+        <app-sidenav ></app-sidenav>
+        <router-outlet></router-outlet>
+    </div>
+
+    <div *ngIf="!isLogin">
+        <h1>Reseller Portal</h1>
+    <app-login></app-login> 
+    passwort muss ein klein ein groß buchstabe enthalten<br>
+    mind 1 ziffer<br>
+    mind 1 sonderzeichen<br>
+    mind 8 zeichen lang
+    </div>
+
 </div>
