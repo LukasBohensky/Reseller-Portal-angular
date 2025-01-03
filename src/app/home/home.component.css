@@ -15,7 +15,7 @@
     width: 100%;
   }
 
-  button {
+  .designedHeader {
     font-size: 50px;
     color: #000000;
     font-family: inherit;
@@ -29,18 +29,18 @@
     transition-property: color;
   }
   
-  button:focus,
-  button:hover {
+  .designedHeader:focus,
+  .designedHeader:hover {
     color: #000000;
   }
   
-  button:focus:after,
-  button:hover:after {
+  .designedHeader:focus:after,
+  .designedHeader:hover:after {
     width: 100%;
     left: 0%;
   }
   
-  button:after {
+  .designedHeader:after {
     content: "";
     pointer-events: none;
     bottom: -2px;
