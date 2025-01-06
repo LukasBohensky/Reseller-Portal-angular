@@ -1,0 +1,12 @@
+export interface Instance {
+    status: string;
+    erstellungsdatum: string;
+    anrede?: string;
+    kontaktperson?: string;
+    anschrift?: string;
+    telefonnummer?: number;
+    kundenname: string;
+    hostname: string;
+    email: string;
+    user?: string;
+  }

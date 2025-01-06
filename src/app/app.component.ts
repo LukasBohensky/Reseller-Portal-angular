@@ -16,11 +16,12 @@ import { LoginComponent } from "./login/login.component";
 import { SharedService } from './shared/sharedIsLoggedIn';
 import { HttpClientModule} from "@angular/common/http";
 
+import { FooterComponent } from './footer/footer.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SidenavComponent, RouterModule, MatTooltipModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatCommonModule, MatIconModule, CommonModule, LoginComponent, HttpClientModule],
+  imports: [RouterOutlet, FooterComponent, SidenavComponent, RouterModule, MatTooltipModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatCommonModule, MatIconModule, CommonModule, LoginComponent, HttpClientModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

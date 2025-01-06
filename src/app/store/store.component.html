@@ -1,10 +1,10 @@
-
+<!--- Erste Version vom Stepper
   <mat-stepper [linear]="isLinear" orientation="vertical" class="stepper" #stepper>
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Namensvergebung</ng-template>
+        <ng-template matStepLabel>Kundenname</ng-template>
         <mat-form-field>
-          <mat-label>Name der Instanz</mat-label>
+          <mat-label>Kundenname</mat-label>
           <input matInput placeholder="Name" formControlName="firstCtrl" required>
         </mat-form-field>
         <div>
@@ -26,7 +26,72 @@
       </form>
     </mat-step>
   </mat-stepper>
-  
+-->
+
+
+<mat-stepper [linear]="true" orientation="vertical" class="stepper" #stepper>
+  <!--  Neuer Stepper  -->
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Kundenname</ng-template>
+      <mat-form-field>
+        <mat-label>Kundenname</mat-label>
+        <input matInput placeholder="Name" formControlName="firstCtrl" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Nächster Schritt</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- Second Step: Kundendaten -->
+  <mat-step [stepControl]="secondFormGroup" label="Kundendaten">
+    <form [formGroup]="secondFormGroup">
+      <mat-form-field>
+        <mat-label>Anrede</mat-label>
+        <mat-select formControlName="anrede">
+          <mat-option value="Herr">Herr</mat-option>
+          <mat-option value="Frau">Frau</mat-option>
+          <mat-option value="Divers">Divers</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <br>
+      <mat-form-field>
+        <mat-label>Kontaktperson</mat-label>
+        <input matInput formControlName="kontaktperson" placeholder="Name der Kontaktperson">
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <mat-label>Anschrift</mat-label>
+        <input matInput formControlName="anschrift" placeholder="Ex. 1 Main St, New York, NY">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>E-Mail Adresse</mat-label>
+        <input matInput formControlName="email" placeholder="E-Mail" required>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Telefonnummer</mat-label>
+        <input matInput type="number" min="11" max="13" placeholder="+430662831322">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Host/Domain-Name</mat-label>
+        <input matInput formControlName="domainName" placeholder="z.B. meinname" required pattern="[a-z0-9]+">
+        <span>unload.work</span>
+      </mat-form-field>
+
+      <div>
+        <button mat-button matStepperPrevious>Zurück</button>
+        <button mat-button (click)="onSave()">Fertigstellen</button>
+      </div>
+    </form>
+  </mat-step>
+</mat-stepper>
+
+
   <div class="modal" *ngIf="showPayment">
     <form class="form">
       <div class="payment--options">
