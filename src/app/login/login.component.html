@@ -6,7 +6,7 @@
 
 <div class="c-formContainer">
   <!--<div class="c-welcome">Welcome, {{ email }}!</div>-->
-  <form class="c-form" action="">
+  <form class="c-form" (submit)="loginUser($event)">
 
 
     <div class="c-form__group">
@@ -40,10 +40,10 @@
                         required
                         (input)="onPasswordInput($event)">
 
-                    <label 
-                    class="c-form__next" 
+                    <label
+                    class="c-form__next"
                     [for]="isPasswordValid ? 'finish' : ''"
-                    (click)="loginUser()"
+                    (click)="isPasswordValid && loginUser($event)"
                     [class.disabled]="!isPasswordValid"
                     role="button">
                     <label class="c-form__next" role="button"></label>
