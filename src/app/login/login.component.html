@@ -77,6 +77,16 @@
         required
         (input)="onEmailInput($event)"
       />
+      <button
+        type="button"
+        mat-icon-button
+        (click)="clickEvent($event)"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide()"
+        style="visibility: hidden"
+      >
+        <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
     </div>
 
     <!--Passwort-->
@@ -92,17 +102,17 @@
         [type]="hide() ? 'password' : 'text'"
       />
 
-
+      <button
+        type="button"
+        mat-icon-button
+        (click)="clickEvent($event)"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide()"
+      >
+        <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
     </div>
-    <button
-      type="button"
-      mat-icon-button
-      (click)="clickEvent($event)"
-      [attr.aria-label]="'Hide password'"
-      [attr.aria-pressed]="hide()"
-    >
-      <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
-    </button>
+
     <div>
 
     </div>
