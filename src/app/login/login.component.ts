@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SharedService } from '../shared/sharedIsLoggedIn';
 import { CommonModule } from '@angular/common';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {ChangeDetectionStrategy, signal} from '@angular/core';
 
 const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
@@ -18,6 +19,7 @@ const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d
   imports: [
     MatFormFieldModule, MatInputModule, MatCardModule, MatButtonModule, ReactiveFormsModule, MatIconModule, CommonModule,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 
@@ -35,6 +37,13 @@ export class LoginComponent implements OnInit{
     this.sharedService.sharedVariable$.subscribe(value => {
       console.log('isLogin Status in der Login-Komponente:', value);
     });
+  }
+
+  hide = signal(true);
+
+  clickEvent(event: MouseEvent) {
+    this.hide.set(!this.hide());
+    event.stopPropagation();
   }
 
   onEmailInput(event: Event): void{
@@ -71,11 +80,11 @@ export class LoginComponent implements OnInit{
         password: this.password,
       };
 
-      this.http.post('http://localhost:3000/login', loginData).subscribe({
+      this.http.post('http://localhost:3000/login', loginData, {withCredentials: true}).subscribe({
         next: (response: any) => {
           console.log('Login erfolgreich:', response);
           this.sharedService.setSharedVariable(true);
-          alert('Login erfolgreich!');
+          //alert('Login erfolgreich!');
         },
         error: (error) => {
           console.error('Login fehlgeschlagen:', error);
@@ -96,5 +105,5 @@ export class LoginComponent implements OnInit{
     }*/
   }
 
-  protected readonly event = event;
+  //protected readonly event = event;
 }

@@ -1,11 +1,11 @@
-<body>
+<!--<body>
 <input class="c-checkbox" type="checkbox" id="start">
 <input class="c-checkbox" type="checkbox" id="progress2">
 <input class="c-checkbox" type="checkbox" id="finish">
 <div class="c-form__progress"></div>
 
 <div class="c-formContainer">
-  <!--<div class="c-welcome">Welcome, {{ email }}!</div>-->
+  <--<div class="c-welcome">Welcome, {{ email }}!</div>->
   <form class="c-form" (submit)="loginUser($event)">
 
 
@@ -58,3 +58,79 @@
     <label class="c-form__toggle" for="start"><span class="c-form__toggleIcon"></span>Login</label>
   </form>
 </div></body>
+-->
+
+
+<div class="login-container">
+  <!-- Logo -->
+  <div class="login-logo">
+    <img src="assets/unload.resellerColorized.jpg" alt="Unload Reseller Logo"/>
+  </div>
+
+  <form class="login-form" (submit)="loginUser($event)">
+    <div class="form-group">
+      <input
+        type="text"
+        id="username"
+        class="form-input"
+        placeholder="Nutzername"
+        required
+        (input)="onEmailInput($event)"
+      />
+    </div>
+
+    <!--Passwort-->
+    <div class="form-group">
+      <input
+        type="password"
+        id="password"
+        class="form-input"
+        placeholder="Passwort"
+        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+        required
+        (input)="onPasswordInput($event)"
+        [type]="hide() ? 'password' : 'text'"
+      />
+
+
+    </div>
+    <button
+      type="button"
+      mat-icon-button
+      (click)="clickEvent($event)"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hide()"
+    >
+      <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
+    </button>
+    <div>
+
+    </div>
+
+    <!--<div class="form-group">
+      <mat-form-field>
+        <mat-label>Enter your password</mat-label>
+        <input matInput [type]="hide() ? 'password' : 'text'" />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="clickEvent($event)"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide()"
+          (input)="onPasswordInput($event)"
+        >
+          <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>-->
+
+    <!-- Login-Button -->
+    <button
+      type="submit"
+      class="login-button"
+      [disabled]="!isPasswordValid"
+    >
+      Login
+    </button>
+  </form>
+</div>
+

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { SharedService } from '../shared/shared.service'; 
+import { SharedService } from '../shared/shared.service';
 import { CommonModule } from '@angular/common';
 import {MatTableModule} from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
@@ -36,8 +36,140 @@ export interface Instance {
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  dataSource: any[] = [];
+  displayedColumns: string[] = [
+    'Status',
+    'Erstellungsdatum',
+    'Kundenname',
+    'Hostname',
+    'E-Mail Adresse',
+    'Actions'
+  ]
+
+  constructor(private formService: FormService, private dialog: MatDialog) {}
+
+  ngOnInit(): void {
+    this.formService.getCustomers().subscribe(
+      (data) => {
+        this.dataSource = data;
+      },
+      (error) => {
+        console.error('Fehler beim Abrufen der Daten:', error);
+      }
+    )
+  }
+
+  openDetailsDialog(instance: Instance): void {
+    const dialogRef = this.dialog.open(DetailsDialogComponent, {
+      data: instance,
+      disableClose: true, // Verhindert das Schließen ohne Aktion
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      console.log('Details-Dialog geschlossen.');
+    });
+  }
+
+
+  openEditDialog(instance: any): void {
+    const dialogRef = this.dialog.open(EditDialogComponent, {
+      data: { ...instance } // Eine Kopie der Instanz-Daten übergeben
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        // API-Aufruf zum Aktualisieren der Daten in der Datenbank
+        this.formService.updateCustomer(result).subscribe(
+          (response) => {
+            console.log('Kunde erfolgreich aktualisiert:', response);
+
+            // Lokale Datenquelle aktualisieren
+            const index = this.dataSource.findIndex((i) => i.hostname === result.hostname);
+            if (index !== -1) {
+              // Nur die geänderte Instanz aktualisieren
+              this.dataSource[index] = { ...result };
+              this.dataSource = [...this.dataSource]; // Trigger für die Anzeige
+            }
+          },
+          (error) => {
+            console.error('Fehler beim Aktualisieren der Daten:', error);
+          }
+        );
+      }
+    });
+  }
+  /*openEditDialog(instance: Instance): void {
+    const dialogRef = this.dialog.open(EditDialogComponent, {
+      data: { ...instance } // Kopie der Daten übergeben
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.formService.updateCustomer(result).subscribe(
+          (response) => {
+            console.log('Kunde erfolgreich aktualisiert:', response);
+            // Aktualisiere die Anzeige
+            const index = this.dataSource.findIndex((i) => i.hostname === result.hostname);
+            if (index !== -1) {
+              this.dataSource[index] = result;
+            }
+          },
+          (error) => {
+            console.error('Fehler beim Aktualisieren der Daten:', error);
+          }
+        );
+      }
+    });
+  }*/
+
+
+  openDeactivateDialog(instance: any): void {
+    console.log('Instance übergeben an Dialog:', instance);
+
+    const dialogRef = this.dialog.open(DeactivateDialogComponent, {
+      data: instance, // Übergabe der Instanzdaten
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log('Lösche Datensatz mit domainName:', instance.domainName);
+        this.formService.deleteCustomer(instance.domainName).subscribe(
+          (response) => {
+            console.log('Datensatz erfolgreich gelöscht:', response);
+
+            // Lokale Datenquelle aktualisieren
+            this.dataSource = this.dataSource.filter((i) => i.domainName !== instance.domainName);
+          },
+          (error) => {
+            console.error('Fehler beim Löschen des Datensatzes:', error);
+          }
+        );
+      }
+    });
+  }
+  /*openDeactivateDialog(instance: Instance): void {
+    const dialogRef = this.dialog.open(DeactivateDialogComponent, {
+      data: instance, // Übergabe der Instanzdaten
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        // Entferne die deaktivierte Instanz aus der Tabelle
+        this.dataSource = this.dataSource.filter((i) => i.hostname !== instance.hostname);
+
+        console.log('Instanz deaktiviert:', instance.hostname);
+      }
+    });
+  }*/
+
+  openContextMenu(event: MouseEvent, instance: Instance): void {
+    event.preventDefault(); // Verhindert das Standard-Kontextmenü des Browsers
+    this.menuTrigger.menuData = { item: instance }; // Setzt die aktuellen Daten für das Menü
+    this.menuTrigger.openMenu(); // Öffnet das Kontextmenü
+  }
   @ViewChild(MatMenuTrigger) menuTrigger!: MatMenuTrigger;
 
+  /*
   displayedColumns: string[] = ['Status', 'Erstellungsdatum', 'Kundenname', 'Hostname', 'E-Mail Adresse', 'Actions'];
   dataSource: MatTableDataSource<Instance> = new MatTableDataSource();
 
@@ -115,6 +247,6 @@ export class HomeComponent implements OnInit {
     event.preventDefault(); // Verhindert das Standard-Kontextmenü
     this.menuTrigger.menuData = { item: row }; // Setzt die Daten für das Menü
     this.menuTrigger.openMenu(); // Öffnet das Kontextmenü
-  }
+  }*/
 }
 

@@ -19,15 +19,30 @@ export interface Instance {
   providedIn: 'root'
 })
 export class FormService {
-  private baseUrl = 'http://localhost:3000';
+  private apiUrl = 'http://localhost:3000/get-customers';
 
   constructor(private http: HttpClient) {}
 
-  saveForm(formValues: any): Observable<any> {
+  getCustomers(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl); // Daten abrufen
+  }
+
+  updateCustomer(data: any): Observable<any> {
+    const apiUrl = 'http://localhost:3000/update-customer';
+    return this.http.put(apiUrl, data);
+  }
+
+  deleteCustomer(domainName: string): Observable<any> {
+    const apiUrl = `http://localhost:3000/delete-customer/${domainName}`;
+    console.log('Aufruf der URL:', apiUrl);
+    return this.http.delete(apiUrl);
+  }
+
+  /*saveForm(formValues: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/save-form`, formValues);
   }
 
   getForms(): Observable<any> {
     return this.http.get<Instance[]>(`${this.baseUrl}/get-forms`);
-  }
+  }*/
 }

@@ -32,7 +32,7 @@ import { MatButton } from '@angular/material/button';
       </mat-form-field><br>
       <mat-form-field>
         <mat-label>Telefonnummer</mat-label>
-        <input matInput type="number" min="11" [(ngModel)]="data.telefonnummer">
+        <input matInput [(ngModel)]="data.telefonnummer">
       </mat-form-field><br>
     </div>
     <div mat-dialog-actions>
@@ -47,11 +47,14 @@ export class EditDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: any, // Inject data passed to the dialog
     private dialogRef: MatDialogRef<EditDialogComponent> // Inject MatDialogRef
   ) {}
-  save() {
-    this.dialogRef.close(this.data);
+  save(): void {
+    console.log('Geänderte Daten:', this.data);
+    this.dialogRef.close(this.data); // Gibt die geänderten Daten zurück
   }
 
   close() {
     this.dialogRef.close();
   }
 }
+
+//type="number" min="11"
