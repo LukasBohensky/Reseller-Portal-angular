@@ -1,22 +1,19 @@
-:host {
-    min-height: 100vh;
+
   
+  .container {
     display: flex;
     flex-direction: row;
+    height: 100vh; /* Set the height to the full viewport height */
   }
   
-  .sidenav {
-    width: 100%;
-    height: auto;
-  
-    box-sizing: border-box;
+  app-sidenav {
+    width: auto; /* Set the width of the sidenav */
+    flex-shrink: 0; /* Prevent the sidenav from shrinking */
+    height: 100vh;
+    margin-right: 20px;
+    box-shadow: 3px 0 10px rgba(0, 0, 0, 0.1); /* Right-side shadow */
   }
   
-  .content {
-    flex-grow: 1;
-    display: grid;
-    padding: 1rem;
-  }
 
   h1 {
     text-align: center;

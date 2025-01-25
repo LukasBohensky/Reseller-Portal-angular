@@ -1,7 +1,8 @@
-<a
+<a mat-list-item
   [routerLink]="routerLink"
   routerLinkActive="active"
->
+  [class.active]="isActive()">
+
   <span>
     <ng-content select="[icon]"></ng-content>
   </span>

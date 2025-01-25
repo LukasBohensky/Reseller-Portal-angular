@@ -1,5 +1,5 @@
 <div class="content">
-    <div *ngIf="!isLogin">
+    <div *ngIf="isLogin">
       <app-login></app-login>
       passwort muss ein klein ein groß buchstabe enthalten<br>
       mind 1 ziffer<br>
@@ -7,10 +7,8 @@
       mind 8 zeichen lang
     </div>
 
-    <div *ngIf="isLogin">
-      <h1>Reseller Portal</h1>
-      <app-sidenav ></app-sidenav>
+    <div *ngIf="!isLogin" class="container">
+      <app-sidenav></app-sidenav>
       <router-outlet></router-outlet>
-      <footer><app-footer></app-footer></footer>
     </div>
 </div>

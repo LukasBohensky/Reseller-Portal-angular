@@ -12,3 +12,20 @@ body {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Remove Material Button Hover Effect */
+.mat-button, 
+.mat-list-item {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Remove Material hover background */
+.mat-list-item:hover {
+  background: transparent !important;
+}
+
+/* Disable Material Ripple effect */
+.mat-ripple {
+  display: none !important;
+}

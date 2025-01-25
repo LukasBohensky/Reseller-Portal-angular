@@ -27,6 +27,53 @@
         </mat-nav-list>
       </mat-sidenav-content>
 </mat-sidenav-container>--> 
+<mat-sidenav-container class="sidenav-container">
+  <!-- Side Navigation an der Seite und geoeffnet-->
+  <mat-sidenav #sidenav mode="side" opened class="sidenav">
+    
+    <div class="user-info">
+      <!-- matMenuTriggerFor ist eine Referenz auf einen Trigger der spaeter
+           im Code aufgerufen werden kann-->
+      <button mat-button [matMenuTriggerFor]="userMenu">
+        <mat-icon>menu</mat-icon>
+        Max Muster
+      </button>
+      <!-- -->
+      <mat-menu #userMenu="matMenu">
+        <button mat-menu-item>Profile</button>
+        <button mat-menu-item>Settings</button>
+      </mat-menu>
+    </div>
+
+    <!-- Navigation List -->
+    <mat-nav-list>
+      <app-sidenav-links routerLink="/home">
+        <mat-icon>grid_view</mat-icon> Übersicht
+      </app-sidenav-links>
+      <app-sidenav-links routerLink="/store">
+        <mat-icon>sell</mat-icon> Produkt
+      </app-sidenav-links>
+      <app-sidenav-links routerLink="/settings">
+        <mat-icon>settings</mat-icon> Einstellungen
+      </app-sidenav-links>
+      <app-sidenav-links routerLink="/login">
+        <mat-icon>logout</mat-icon> Logout
+      </app-sidenav-links>
+    </mat-nav-list>
+
+    <!-- Bottom Section -->
+    <div class="bottom-section">
+      <p>Maximaler Mustermann</p>
+      <img src="assets/unload.resellerColorized.jpg" width="105%" height="auto"/>
+      <p class="version">v0.0.0</p>
+      <a mat-list-item routerLink="/support">
+        <mat-icon>help_outline</mat-icon> Support
+      </a>
+    </div>
+  </mat-sidenav>
+</mat-sidenav-container>
+
+<!---
 <div class="button-container">
   <app-sidenav-links routerLink="/home">
   <button class="button">
@@ -87,4 +134,4 @@
     </svg>
   </button>
   </app-sidenav-links>
-</div>
+</div>-->

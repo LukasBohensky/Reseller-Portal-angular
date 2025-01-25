@@ -9,11 +9,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { SidenavLinksComponent } from "../sidenav-links/sidenav-links.component";
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
-  styleUrl: './sidenav.component.css',
+  styleUrl: './sidenav.component.scss',
   standalone: true,
   imports: [
     MatToolbarModule,
@@ -22,6 +23,11 @@ import { SidenavLinksComponent } from "../sidenav-links/sidenav-links.component"
     MatListModule,
     MatIconModule,
     AsyncPipe,
+    MatToolbarModule,
+    MatListModule,
+    MatIconModule,
+    MatButtonModule,
+    MatMenuModule,
     SidenavLinksComponent
 ]
 })
