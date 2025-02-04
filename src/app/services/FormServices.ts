@@ -24,18 +24,24 @@ export class FormService {
   constructor(private http: HttpClient) {}
 
   getCustomers(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl); // Daten abrufen
+    return this.http.get<any[]>(this.apiUrl, {
+      withCredentials: true
+    }); // Daten abrufen
   }
 
   updateCustomer(data: any): Observable<any> {
     const apiUrl = 'http://localhost:3000/update-customer';
-    return this.http.put(apiUrl, data);
+    return this.http.put(apiUrl, data, {
+      withCredentials: true
+    });
   }
 
   deleteCustomer(domainName: string): Observable<any> {
     const apiUrl = `http://localhost:3000/delete-customer/${domainName}`;
     console.log('Aufruf der URL:', apiUrl);
-    return this.http.delete(apiUrl);
+    return this.http.delete(apiUrl, {
+      withCredentials: true
+    });
   }
 
   /*saveForm(formValues: any): Observable<any> {
