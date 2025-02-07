@@ -1,10 +1,46 @@
+.product-form {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+
+  h2 {
+    margin-bottom: 16px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Zwei Spalten */
+    gap: 24px;
+    margin-bottom: 16px;
+  }
+
+  mat-form-field {
+    /*width: 100%;*/
+    width: 400px;
+
+  }
+
+}
+
+.dashboard-box {
+  flex: 1;
+  min-width: 48%;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/*
 .stepper {
     float: left;
     width: 50%;
 }
 
 
-/* From Uiverse.io by zanina-yassine */ 
+/* From Uiverse.io by zanina-yassine
 .modal {
     float: left;
     margin-right: 20%;
@@ -15,14 +51,14 @@
     border-radius: 26px;
     max-width: 450px;
   }
-  
+
   .form {
     display: flex;
     flex-direction: column;
     gap: 20px;
     padding: 20px;
   }
-  
+
   .payment--options {
     width: calc(100% - 40px);
     display: grid;
@@ -30,7 +66,7 @@
     gap: 20px;
     padding: 10px;
   }
-  
+
   .payment--options button {
     height: 55px;
     background: #F2F2F2;
@@ -39,15 +75,15 @@
     border: 0;
     outline: none;
   }
-  
+
   .payment--options button svg {
     height: 18px;
   }
-  
+
   .payment--options button:last-child svg {
     height: 22px;
   }
-  
+
   .separator {
     width: calc(100% - 20px);
     display: grid;
@@ -56,7 +92,7 @@
     color: #8B8E98;
     margin: 0 10px;
   }
-  
+
   .separator > p {
     word-break: keep-all;
     display: block;
@@ -65,7 +101,7 @@
     font-size: 11px;
     margin: auto;
   }
-  
+
   .separator .line {
     display: inline-block;
     width: 100%;
@@ -74,13 +110,13 @@
     background-color: #e8e8e8;
     margin: auto;
   }
-  
+
   .credit-card-info--form {
     display: flex;
     flex-direction: column;
     gap: 15px;
   }
-  
+
   .input_container {
     width: 100%;
     height: fit-content;
@@ -88,23 +124,23 @@
     flex-direction: column;
     gap: 5px;
   }
-  
+
   .split {
     display: grid;
     grid-template-columns: 4fr 2fr;
     gap: 15px;
   }
-  
+
   .split input {
     width: 100%;
   }
-  
+
   .input_label {
     font-size: 10px;
     color: #8B8E98;
     font-weight: 600;
   }
-  
+
   .input_field {
     width: auto;
     height: 40px;
@@ -115,13 +151,13 @@
     border: 1px solid #e5e5e500;
     transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
   }
-  
+
   .input_field:focus {
     border: 1px solid transparent;
     box-shadow: 0px 0px 0px 2px #242424;
     background-color: transparent;
   }
-  
+
   .purchase--btn {
     height: 55px;
     background: #F2F2F2;
@@ -135,18 +171,19 @@
     box-shadow: 0px 0px 0px 0px #FFFFFF, 0px 0px 0px 0px #000000;
     transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
   }
-  
+
   .purchase--btn:hover {
     box-shadow: 0px 0px 0px 2px #FFFFFF, 0px 0px 0px 4px #0000003a;
   }
-  
-  /* Reset input number styles */
+
+  /* Reset input number styles
   .input_field::-webkit-outer-spin-button,
   .input_field::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
-  
+
   .input_field[type=number] {
     -moz-appearance: textfield;
   }
+*/

@@ -16,6 +16,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClient } from '@angular/common/http';
 import { SharedService } from '../shared/sharedIsLoggedIn';
+import {MatDividerModule} from '@angular/material/divider';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormService } from '../services/FormServices';
 interface RequestData {
@@ -37,13 +38,79 @@ interface RequestData {
     MatFormFieldModule,
     MatInputModule,
     SidenavLinksComponent,
+    MatDividerModule
   ],
   templateUrl: './store.component.html',
   styleUrls: ['./store.component.css'],
 })
 
+
 export class StoreComponent {
-  firstFormGroup: FormGroup;
+  storeForm: FormGroup;
+  showPayment: boolean = false;
+
+  constructor(
+    private _formBuilder: FormBuilder,
+    private http: HttpClient,
+    private snackBar: MatSnackBar
+  ) {
+    // Initialisiere das Formular mit den gewünschten Feldern
+    this.storeForm = this._formBuilder.group({
+      name: ['', Validators.required], // Pflichtfeld
+      anrede: ['', Validators.required], // Pflichtfeld
+      kontaktperson: ['', Validators.required], // Pflichtfeld
+      anschrift: ['', Validators.required], // Pflichtfeld
+      email: ['', [Validators.required, Validators.email]], // Pflichtfeld mit Email-Validierung
+      telefonnummer: ['', [Validators.pattern(/^\+?[0-9\s-]{10,15}$/)]], // Telefonnummer-Validierung
+      domainName: ['', [Validators.required, Validators.pattern('[a-z0-9-]+')]], // Domain-Name-Validierung
+    });
+  }
+  /**
+   * Speichert die Kundendaten und zeigt eine Snackbar an.
+   */
+  onSave(): void {
+    if (this.storeForm.valid) {
+      const formData = {
+        name: this.storeForm.value.name,
+        anrede: this.storeForm.value.anrede,
+        kontaktperson: this.storeForm.value.kontaktperson,
+        anschrift: this.storeForm.value.anschrift,
+        email: this.storeForm.value.email,
+        telefonnummer: this.storeForm.value.telefonnummer,
+        domainName: `${this.storeForm.value.domainName}.unload.work`,
+      };
+
+      console.log('Gesendete Daten:', formData);
+
+      this.http.post('http://localhost:3000/save-form', formData, {withCredentials: true,}).subscribe({
+          next: () => {
+            this.snackBar.open(
+              'Kundendaten erfolgreich gespeichert!',
+              'Schließen',
+              { duration: 5000 }
+            );
+            this.storeForm.reset(); // Setzt das Formular zurück
+          },
+          error: (error) => {
+            this.snackBar.open(
+              `Fehler beim Speichern: ${error.message}`,
+              'Schließen',
+              { duration: 5000 }
+            );
+          },
+        });
+    } else {
+      this.snackBar.open(
+        'Bitte alle Pflichtfelder korrekt ausfüllen!',
+        'Schließen',
+        { duration: 5000 }
+      );
+    }
+  }
+
+
+}
+  /*firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   showPayment: boolean = false;
 
@@ -90,7 +157,7 @@ export class StoreComponent {
       alert('Bitte alle Pflichtfelder ausfüllen!');
     }
   }
-
+}
   /*processPayment(paymentData: any): void {
     if (!paymentData.fullname || !paymentData.cardNumber || !paymentData.expiryDate || !paymentData.cvv) {
       alert('Bitte alle Zahlungsinformationen ausfüllen!');
@@ -118,7 +185,7 @@ export class StoreComponent {
       }
     });
   }*/
-}
+//}
 
 
 

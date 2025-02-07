@@ -29,8 +29,8 @@
 -->
 
 
-<mat-stepper [linear]="true" orientation="vertical" class="stepper" #stepper>
-  <!--  Neuer Stepper  -->
+<!--<mat-stepper [linear]="true" orientation="vertical" class="stepper" #stepper>
+    Neuer Stepper
   <mat-step [stepControl]="firstFormGroup">
     <form [formGroup]="firstFormGroup">
       <ng-template matStepLabel>Kundenname</ng-template>
@@ -44,7 +44,7 @@
     </form>
   </mat-step>
 
-  <!-- Second Step: Kundendaten -->
+ Second Step: Kundendaten
   <mat-step [stepControl]="secondFormGroup" label="Kundendaten">
     <form [formGroup]="secondFormGroup">
       <mat-form-field>
@@ -89,8 +89,58 @@
       </div>
     </form>
   </mat-step>
-</mat-stepper>
+</mat-stepper>-->
 
+<div class="product-form">
+  <h2>Instanzdaten</h2>
+  <div class="dashboard-box">
+  <form [formGroup]="storeForm" (ngSubmit)="onSave()">
+    <div class="form-grid">
+      <mat-form-field appearance="fill">
+        <mat-label>Kundenname</mat-label>
+        <input matInput formControlName="name" placeholder="Name des Kunden" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Anrede</mat-label>
+        <mat-select formControlName="anrede">
+          <mat-option value="Herr">Herr</mat-option>
+          <mat-option value="Frau">Frau</mat-option>
+          <mat-option value="Divers">Divers</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Kontaktperson</mat-label>
+        <input matInput formControlName="kontaktperson" placeholder="Name der Kontaktperson" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Anschrift</mat-label>
+        <input matInput formControlName="anschrift" placeholder="Adresse" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>E-Mail</mat-label>
+        <input matInput type="email" formControlName="email" placeholder="E-Mail-Adresse" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Telefonnummer</mat-label>
+        <input matInput type="tel" formControlName="telefonnummer" placeholder="+43 123 456 789">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Host/Domain-Name</mat-label>
+        <input matInput formControlName="domainName" placeholder="z.B. domainname" required>
+        <span>.unload.work</span>
+      </mat-form-field>
+    </div>
+
+    <button mat-raised-button color="primary" type="submit">Speichern</button>
+  </form>
+    </div>
+</div>
 
   <div class="modal" *ngIf="showPayment">
     <form class="form">

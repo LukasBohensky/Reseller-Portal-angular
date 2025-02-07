@@ -3,7 +3,7 @@
 
 body {
     margin: 0;
-  
+
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   }
   :root {
@@ -14,10 +14,26 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /* Remove Material Button Hover Effect */
-.mat-button, 
+.mat-button,
 .mat-list-item {
   background: transparent !important;
   box-shadow: none !important;
+}
+
+.mat-icon {
+  vertical-align: middle;
+}
+
+.mat-form-field {
+  background: transparent !important;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: white !important;
+}
+
+.mat-mdc-form-field-focus-overlay {
+  background-color: transparent !important;
 }
 
 /* Remove Material hover background */

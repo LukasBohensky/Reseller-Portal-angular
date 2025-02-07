@@ -31,6 +31,7 @@ export class AppComponent {
 
   constructor(private sharedService: SharedService) {}
 
+
   ngOnInit(): void {
     this.sharedService.sharedVariable$.subscribe(value => {
       console.log('isLogin Status geändert auf:', value);

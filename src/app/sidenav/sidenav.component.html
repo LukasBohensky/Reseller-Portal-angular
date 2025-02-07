@@ -20,23 +20,23 @@
               </mat-icon>
             </button>
           </app-sidenav-links><br><br><br><br>
-          
+
           <app-sidenav-links routerLink="/login">
             <button mat-fab class="sidenavButton"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="account_circle"></mat-icon></button>
           </app-sidenav-links>
         </mat-nav-list>
       </mat-sidenav-content>
-</mat-sidenav-container>--> 
+</mat-sidenav-container>-->
 <mat-sidenav-container class="sidenav-container">
   <!-- Side Navigation an der Seite und geoeffnet-->
   <mat-sidenav #sidenav mode="side" opened class="sidenav">
-    
+
     <div class="user-info">
       <!-- matMenuTriggerFor ist eine Referenz auf einen Trigger der spaeter
            im Code aufgerufen werden kann-->
       <button mat-button [matMenuTriggerFor]="userMenu">
         <mat-icon>menu</mat-icon>
-        Max Muster
+        {{userEmail}}
       </button>
       <!-- -->
       <mat-menu #userMenu="matMenu">
@@ -48,26 +48,34 @@
     <!-- Navigation List -->
     <mat-nav-list>
       <app-sidenav-links routerLink="/home">
-        <mat-icon>grid_view</mat-icon> Übersicht
+        <mat-icon class="v-align-middle">grid_view</mat-icon>
+        <span class="v-align-middle">Übersicht</span>
       </app-sidenav-links>
+
       <app-sidenav-links routerLink="/store">
-        <mat-icon>sell</mat-icon> Produkt
+        <mat-icon class="v-align-middle">sell</mat-icon>
+        <span class="v-align-middle">Produkt</span>
       </app-sidenav-links>
+
       <app-sidenav-links routerLink="/settings">
-        <mat-icon>settings</mat-icon> Einstellungen
+        <mat-icon class="v-align-middle">settings</mat-icon>
+        <span class="v-align-middle">Einstellungen</span>
       </app-sidenav-links>
-      <app-sidenav-links routerLink="/login">
-        <mat-icon>logout</mat-icon> Logout
-      </app-sidenav-links>
+
+        <app-sidenav-links (click)="confirmLogout()">
+          <mat-icon class="v-align-middle">logout</mat-icon>
+          <span class="v-align-middle">Logout</span>
+        </app-sidenav-links>
     </mat-nav-list>
 
     <!-- Bottom Section -->
     <div class="bottom-section">
-      <p>Maximaler Mustermann</p>
+      <p>{{ userEmail }}</p>
       <img src="assets/unload.resellerColorized.jpg" width="105%" height="auto"/>
       <p class="version">v0.0.0</p>
       <a mat-list-item routerLink="/support">
-        <mat-icon>help_outline</mat-icon> Support
+        <mat-icon class="v-align-middle">help_outline</mat-icon>
+        <span class="v-align-middle">Support</span>
       </a>
     </div>
   </mat-sidenav>

@@ -10,6 +10,7 @@ import { SharedService } from '../shared/sharedIsLoggedIn';
 import { CommonModule } from '@angular/common';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {ChangeDetectionStrategy, signal} from '@angular/core';
+import { Router } from '@angular/router';
 
 const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
@@ -30,7 +31,7 @@ export class LoginComponent implements OnInit{
   isPasswordValid: boolean = false;
 
 
-  constructor(private sharedService: SharedService, private http: HttpClient) { }
+  constructor(private sharedService: SharedService, private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
     // Überwache den Status von isLogin
@@ -65,13 +66,6 @@ export class LoginComponent implements OnInit{
         }
     }
 
-  /*preventClick(event: Event): void {
-    if (!this.isPasswordValid){
-      console.log('Button is disabled, cannot proceed');
-      event.preventDefault();
-    }
-  }*/
-
   loginUser(event: Event): void {
     event.preventDefault();
     if (this.isPasswordValid) {
@@ -84,6 +78,7 @@ export class LoginComponent implements OnInit{
         next: (response: any) => {
           console.log('Login erfolgreich:', response);
           this.sharedService.setSharedVariable(true);
+          this.router.navigate(['/home']);
           //alert('Login erfolgreich!');
         },
         error: (error) => {
