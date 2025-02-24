@@ -50,6 +50,13 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;">
     </tr>
   </table>-->
+  
+  <ng-template #outer>
+    <div class="example-menu" cdkMenu>
+      <button class="example-menu-item" cdkMenuItem>Save</button>
+      <button class="example-menu-item" cdkMenuItem>Exit</button>
+    </div>
+  </ng-template>
 
   <div class="dashboard-container">
     <!-- First Box (Table 1) -->
@@ -57,63 +64,6 @@
       <h3 class="dashboard-title">Instanzen (vor kurzem)</h3>
       <div class="table-container">
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-          <!-- Status Column -->
-          <ng-container matColumnDef="Status">
-            <th mat-header-cell *matHeaderCellDef> Status </th>
-            <td mat-cell *matCellDef="let instance"> {{instance.status}} </td>
-          </ng-container>
-  
-          <!-- Erstellungsdatum Column -->
-          <ng-container matColumnDef="Erstellungsdatum">
-            <th mat-header-cell *matHeaderCellDef> Erstellungsdatum</th>
-            <td mat-cell *matCellDef="let instance"> {{instance.creationDate}} </td>
-          </ng-container>
-  
-          <!-- Kundenname Column -->
-          <ng-container matColumnDef="Kundenname">
-            <th mat-header-cell *matHeaderCellDef> Kundenname </th>
-            <td mat-cell *matCellDef="let instance"> {{instance.name}} </td>
-          </ng-container>
-  
-          <!-- Hostname Column -->
-          <ng-container matColumnDef="Hostname">
-            <th mat-header-cell *matHeaderCellDef> Hostname </th>
-            <td mat-cell *matCellDef="let instance"> {{instance.domainName}} </td>
-          </ng-container>
-  
-          <!-- E-Mail Adresse Column -->
-          <ng-container matColumnDef="E-Mail Adresse">
-            <th mat-header-cell *matHeaderCellDef> E-Mail Adresse </th>
-            <td mat-cell *matCellDef="let instance"> {{instance.email}} </td>
-          </ng-container>
-  
-          <!-- Actions Column -->
-          <ng-container matColumnDef="Actions">
-            <th mat-header-cell *matHeaderCellDef> Actions </th>
-            <td mat-cell *matCellDef="let instance">
-              <button mat-button [matMenuTriggerFor]="menu" (click)="openContextMenu($event, instance)">
-                ⋮
-              </button>
-              <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="openDetailsDialog(instance)">Details</button>
-                <button mat-menu-item (click)="openEditDialog(instance)">Edit</button>
-                <button mat-menu-item (click)="openDeactivateDialog(instance)">Deactivate</button>
-              </mat-menu>
-            </td>
-          </ng-container>
-  
-          <!-- Table Rows -->
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-      </div>
-    </div>
-  
-    <!-- Second Box (Table 2) -->
-    <div class="dashboard-box">
-      <h3 class="dashboard-title">Deaktivierte Instanzen</h3>
-      <div class="table-container">
-          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
             <!-- Status Column -->
             <ng-container matColumnDef="Status">
               <th mat-header-cell *matHeaderCellDef> Status </th>
@@ -148,10 +98,67 @@
             <ng-container matColumnDef="Actions">
               <th mat-header-cell *matHeaderCellDef> Actions </th>
               <td mat-cell *matCellDef="let instance">
-                <button mat-button [matMenuTriggerFor]="menu" (click)="openContextMenu($event, instance)">
+                <button mat-button [matMenuTriggerFor]="menu1" (click)="openContextMenu($event, instance)">
                   ⋮
                 </button>
-                <mat-menu #menu="matMenu">
+                <mat-menu #menu1="matMenu">
+                  <button mat-menu-item (click)="openDetailsDialog(instance)">Details</button>
+                  <button mat-menu-item (click)="openEditDialog(instance)">Edit</button>
+                  <button mat-menu-item (click)="openDeactivateDialog(instance)">Deactivate</button>
+                </mat-menu>
+              </td>
+            </ng-container>
+  
+          <!-- Table Rows -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </div>
+  
+    <!-- Second Box (Table 2) -->
+    <div class="dashboard-box">
+      <h3 class="dashboard-title">Deaktivierte Instanzen</h3>
+      <div class="table-container">
+          <table mat-table [dataSource]="dataSource_disabled" class="mat-elevation-z8">
+            <!-- Status Column -->
+            <ng-container matColumnDef="Status">
+              <th mat-header-cell *matHeaderCellDef> Status </th>
+              <td mat-cell *matCellDef="let instance"> {{instance.status}} </td>
+            </ng-container>
+    
+            <!-- Erstellungsdatum Column -->
+            <ng-container matColumnDef="Erstellungsdatum">
+              <th mat-header-cell *matHeaderCellDef> Erstellungsdatum</th>
+              <td mat-cell *matCellDef="let instance"> {{instance.creationDate}} </td>
+            </ng-container>
+    
+            <!-- Kundenname Column -->
+            <ng-container matColumnDef="Kundenname">
+              <th mat-header-cell *matHeaderCellDef> Kundenname </th>
+              <td mat-cell *matCellDef="let instance"> {{instance.name}} </td>
+            </ng-container>
+    
+            <!-- Hostname Column -->
+            <ng-container matColumnDef="Hostname">
+              <th mat-header-cell *matHeaderCellDef> Hostname </th>
+              <td mat-cell *matCellDef="let instance"> {{instance.domainName}} </td>
+            </ng-container>
+    
+            <!-- E-Mail Adresse Column -->
+            <ng-container matColumnDef="E-Mail Adresse">
+              <th mat-header-cell *matHeaderCellDef> E-Mail Adresse </th>
+              <td mat-cell *matCellDef="let instance"> {{instance.email}} </td>
+            </ng-container>
+    
+            <!-- Actions Column -->
+            <ng-container matColumnDef="Actions">
+              <th mat-header-cell *matHeaderCellDef> Actions </th>
+              <td mat-cell *matCellDef="let instance">
+                <button mat-button [matMenuTriggerFor]="menu2" (click)="openContextMenu($event, instance)">
+                  ⋮
+                </button>
+                <mat-menu #menu2="matMenu">
                   <button mat-menu-item (click)="openDetailsDialog(instance)">Details</button>
                   <button mat-menu-item (click)="openEditDialog(instance)">Edit</button>
                   <button mat-menu-item (click)="openDeactivateDialog(instance)">Deactivate</button>

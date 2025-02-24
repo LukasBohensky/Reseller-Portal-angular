@@ -13,6 +13,9 @@ import { FormService } from '../services/FormServices';
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
 import { MatButton } from '@angular/material/button';
+import {CdkMenu, CdkMenuItem, CdkContextMenuTrigger} from '@angular/cdk/menu';
+
+
 
 export interface Instance {
   status: string;
@@ -32,11 +35,13 @@ export interface Instance {
   standalone: true,
   templateUrl: './home.component.html',
   imports: [CommonModule, MatMenuTrigger,
-    MatTableModule, MatMenuModule, MatMenu, MatButton],
+    MatTableModule, MatMenuModule, MatMenu, MatButton, 
+    CdkContextMenuTrigger, CdkMenu, CdkMenuItem],
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
   dataSource: any[] = [];
+  dataSource_disabled: any[] = [];
   displayedColumns: string[] = [
     'Status',
     'Erstellungsdatum',
@@ -49,17 +54,32 @@ export class HomeComponent implements OnInit {
   constructor(private formService: FormService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.formService.getCustomers().subscribe(
-      (data) => {
-        this.dataSource = data;
-      },
-      (error) => {
-        console.error('Fehler beim Abrufen der Daten:', error);
-      }
-    )
+    
+    this.getCustomers();
+
+  }
+
+  async getCustomers() {
+
+    try {
+
+      let customers = await this.formService.getCustomers().toPromise();
+      let customersDisabled = await this.formService.getCustomersDisabled().toPromise();
+
+      this.dataSource = customers as any;
+      this.dataSource_disabled = customersDisabled as any;
+
+    } catch(err) {
+
+      console.log('Fehler beim laden der Kunden', err);
+
+    }
   }
 
   openDetailsDialog(instance: Instance): void {
+
+    console.log('details', instance);
+
     const dialogRef = this.dialog.open(DetailsDialogComponent, {
       data: instance,
       disableClose: true, // Verhindert das Schließen ohne Aktion
@@ -98,29 +118,6 @@ export class HomeComponent implements OnInit {
       }
     });
   }
-  /*openEditDialog(instance: Instance): void {
-    const dialogRef = this.dialog.open(EditDialogComponent, {
-      data: { ...instance } // Kopie der Daten übergeben
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.formService.updateCustomer(result).subscribe(
-          (response) => {
-            console.log('Kunde erfolgreich aktualisiert:', response);
-            // Aktualisiere die Anzeige
-            const index = this.dataSource.findIndex((i) => i.hostname === result.hostname);
-            if (index !== -1) {
-              this.dataSource[index] = result;
-            }
-          },
-          (error) => {
-            console.error('Fehler beim Aktualisieren der Daten:', error);
-          }
-        );
-      }
-    });
-  }*/
 
 
   openDeactivateDialog(instance: any): void {
@@ -138,7 +135,7 @@ export class HomeComponent implements OnInit {
             console.log('Datensatz erfolgreich gelöscht:', response);
 
             // Lokale Datenquelle aktualisieren
-            this.dataSource = this.dataSource.filter((i) => i.domainName !== instance.domainName);
+            this.getCustomers();
           },
           (error) => {
             console.error('Fehler beim Löschen des Datensatzes:', error);
@@ -147,20 +144,6 @@ export class HomeComponent implements OnInit {
       }
     });
   }
-  /*openDeactivateDialog(instance: Instance): void {
-    const dialogRef = this.dialog.open(DeactivateDialogComponent, {
-      data: instance, // Übergabe der Instanzdaten
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        // Entferne die deaktivierte Instanz aus der Tabelle
-        this.dataSource = this.dataSource.filter((i) => i.hostname !== instance.hostname);
-
-        console.log('Instanz deaktiviert:', instance.hostname);
-      }
-    });
-  }*/
 
   openContextMenu(event: MouseEvent, instance: Instance): void {
     event.preventDefault(); // Verhindert das Standard-Kontextmenü des Browsers
@@ -168,85 +151,5 @@ export class HomeComponent implements OnInit {
     this.menuTrigger.openMenu(); // Öffnet das Kontextmenü
   }
   @ViewChild(MatMenuTrigger) menuTrigger!: MatMenuTrigger;
-
-  /*
-  displayedColumns: string[] = ['Status', 'Erstellungsdatum', 'Kundenname', 'Hostname', 'E-Mail Adresse', 'Actions'];
-  dataSource: MatTableDataSource<Instance> = new MatTableDataSource();
-
-  constructor(private http: HttpClient, private formService: FormService, private dialog: MatDialog) { }
-
-  ngOnInit(): void {
-    console.log('HomeComponent initialized');
-    this.fetchForms();
-  }
-
-  fetchForms() {
-    this.formService.getForms().subscribe({
-      next: (data: Instance[]) => {
-        // Ensure data is an array
-        if (Array.isArray(data)) {
-          this.dataSource.data = data;
-          console.log('Forms fetched successfully:', this.dataSource.data);
-          console.log('Forms fetched successfully:', data);
-        } else {
-          console.error('Fetched data is not an array:', data);
-        }
-      },
-      error: (error) => {
-        console.error('Error fetching forms:', error);
-      }
-    });
-  }
-
-  deleteRow(instance: any): void {
-    // Remove the row from the dataSource
-    this.dataSource.data = this.dataSource.data.filter(item => item !== instance);
-  }
-
-  // Funktion zum Öffnen des Details-Dialogs
-  openDetailsDialog(instance: Instance) {
-    const dialogRef = this.dialog.open(DetailsDialogComponent, {
-      data: instance,
-      disableClose: true,
-    });
-  }
-
-  // Funktion zum Öffnen des Bearbeitungs-Dialogs
-  openEditDialog(instance: Instance) {
-    const dialogRef = this.dialog.open(EditDialogComponent, {
-      data: instance,
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        // Aktualisieren Sie die Daten in der Tabelle, wenn der Dialog mit Änderungen geschlossen wird
-        const index = this.dataSource.data.findIndex(i => i.hostname === result.hostname);
-        if (index !== -1) {
-          this.dataSource.data[index] = result;
-        }
-      }
-    });
-  }
-
-  // Funktion zum Öffnen des Deaktivierungs-Dialogs
-  openDeactivateDialog(instance: Instance) {
-    const dialogRef = this.dialog.open(DeactivateDialogComponent, {
-      data: instance,
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        // Entfernen der Instanz wenn deaktiviert
-        this.dataSource.data = this.dataSource.data.filter(i => i.hostname !== instance.hostname);
-      }
-    });
-  }
-
-  // Funktion zum Öffnen des Kontextmenüs
-  openContextMenu(event: MouseEvent, row: Instance) {
-    event.preventDefault(); // Verhindert das Standard-Kontextmenü
-    this.menuTrigger.menuData = { item: row }; // Setzt die Daten für das Menü
-    this.menuTrigger.openMenu(); // Öffnet das Kontextmenü
-  }*/
 }
 

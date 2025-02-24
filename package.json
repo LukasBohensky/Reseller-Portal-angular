@@ -22,6 +22,7 @@
     "@angular/router": "^18.1.0",
     "@coreui/angular": "^4.8.0",
     "express-session": "^1.18.1",
+    "ngx-contextmenu": "^6.0.0",
     "ngx-paypal": "^11.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

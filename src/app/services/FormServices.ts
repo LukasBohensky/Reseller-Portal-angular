@@ -29,6 +29,12 @@ export class FormService {
     }); // Daten abrufen
   }
 
+  getCustomersDisabled(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + '/disabled', {
+      withCredentials: true
+    }); // Daten abrufen
+  }
+
   updateCustomer(data: any): Observable<any> {
     const apiUrl = 'http://localhost:3000/update-customer';
     return this.http.put(apiUrl, data, {
