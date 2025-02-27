@@ -2,15 +2,15 @@
   h1, h3 {
     font-weight: bold;
   }
-  
+
   section .col-md-4 img {
     max-width: 80px;
   }
-  
+
   footer a {
     text-decoration: underline;
   }
-  
+
   table {
     width: 100%;
   }
@@ -28,18 +28,18 @@
     transition-duration: 400ms;
     transition-property: color;
   }
-  
+
   .designedHeader:focus,
   .designedHeader:hover {
     color: #000000;
   }
-  
+
   .designedHeader:focus:after,
   .designedHeader:hover:after {
     width: 100%;
     left: 0%;
   }
-  
+
   .designedHeader:after {
     content: "";
     pointer-events: none;
@@ -65,7 +65,7 @@
     width: 100%;
     left: 0%;
   }
-  
+
   #deletebtn:after {
     content: "";
     pointer-events: none;
@@ -81,6 +81,35 @@
   }*/
 
   /* Dashboard Container */
+.menu {
+  background-color: #fff; /* Weißer Hintergrund */
+  border: 1px solid #ccc; /* Dezente Umrandung */
+  border-radius: 4px; /* Abgerundete Ecken */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Leichter Schatten */
+  padding: 8px 0; /* Vertikaler Abstand */
+  min-width: 150px; /* Minimale Breite */
+  z-index: 1000; /* Über anderen Elementen */
+}
+
+.menu button {
+  width: 100%; /* Volle Breite für Buttons */
+  padding: 8px 16px; /* Innenabstand */
+  background: none; /* Kein Hintergrund */
+  border: none; /* Keine Ränder */
+  text-align: left; /* Text linksbündig */
+  font-size: 14px; /* Standard-Schriftgröße */
+  cursor: pointer; /* Zeiger als Cursor */
+  transition: background-color 0.2s ease; /* Weicher Hover-Effekt */
+}
+
+.menu button:hover {
+  background-color: #f0f0f0; /* Hintergrundfarbe beim Hover */
+}
+
+.menu button:active {
+  background-color: #e0e0e0; /* Aktiver Zustand */
+}
+
 .dashboard-container {
   display: flex;
   justify-content: space-between;

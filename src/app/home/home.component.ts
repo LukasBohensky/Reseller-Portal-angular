@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { SharedService } from '../shared/shared.service';
+import {Component, ElementRef, HostBinding, OnInit, ViewChild} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialog } from '@angular/material/dialog';
 import { DetailsDialogComponent } from '../DialogComponents/DetailsDialog';
@@ -10,9 +9,10 @@ import { DeactivateDialogComponent } from '../DialogComponents/DeactivateDialog'
 import { MatMenu } from '@angular/material/menu';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { FormService } from '../services/FormServices';
-import { MatTableDataSource } from '@angular/material/table';
-import { HttpClient } from '@angular/common/http';
 import { MatButton } from '@angular/material/button';
+import {CdkContextMenuTrigger, CdkMenuTrigger} from "@angular/cdk/menu";
+import {MatIcon} from "@angular/material/icon";
+import {take} from "rxjs";
 
 export interface Instance {
   status: string;
@@ -32,10 +32,14 @@ export interface Instance {
   standalone: true,
   templateUrl: './home.component.html',
   imports: [CommonModule, MatMenuTrigger,
-    MatTableModule, MatMenuModule, MatMenu, MatButton],
+    MatTableModule, MatMenuModule, MatMenu, MatButton, CdkContextMenuTrigger, MatIcon],
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  //@ViewChild(MatMenuTrigger) menuTrigger!: MatMenuTrigger;
+  @ViewChild(MatMenuTrigger, { static: false }) contextMenu!: MatMenuTrigger;
+  @ViewChild('contextMenuTrigger', { static: false }) contextMenuTrigger!: ElementRef;
+
   dataSource: any[] = [];
   displayedColumns: string[] = [
     'Status',
@@ -43,8 +47,10 @@ export class HomeComponent implements OnInit {
     'Kundenname',
     'Hostname',
     'E-Mail Adresse',
-    'Actions'
+    //'Actions'
   ]
+
+  contextMenuInstance: any;
 
   constructor(private formService: FormService, private dialog: MatDialog) {}
 
@@ -59,7 +65,14 @@ export class HomeComponent implements OnInit {
     )
   }
 
-  openDetailsDialog(instance: Instance): void {
+  openContextMenu(event: MouseEvent, instance: any): void {
+    event.preventDefault(); // Verhindert das Standard-Kontextmenü
+    this.contextMenuInstance = instance;
+    this.contextMenu.menuData = { instance };
+    this.contextMenu.openMenu();
+  }
+
+  openDetailsDialog(instance: any): void {
     const dialogRef = this.dialog.open(DetailsDialogComponent, {
       data: instance,
       disableClose: true, // Verhindert das Schließen ohne Aktion
@@ -98,30 +111,6 @@ export class HomeComponent implements OnInit {
       }
     });
   }
-  /*openEditDialog(instance: Instance): void {
-    const dialogRef = this.dialog.open(EditDialogComponent, {
-      data: { ...instance } // Kopie der Daten übergeben
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.formService.updateCustomer(result).subscribe(
-          (response) => {
-            console.log('Kunde erfolgreich aktualisiert:', response);
-            // Aktualisiere die Anzeige
-            const index = this.dataSource.findIndex((i) => i.hostname === result.hostname);
-            if (index !== -1) {
-              this.dataSource[index] = result;
-            }
-          },
-          (error) => {
-            console.error('Fehler beim Aktualisieren der Daten:', error);
-          }
-        );
-      }
-    });
-  }*/
-
 
   openDeactivateDialog(instance: any): void {
     console.log('Instance übergeben an Dialog:', instance);
@@ -147,6 +136,35 @@ export class HomeComponent implements OnInit {
       }
     });
   }
+
+
+
+  /*openEditDialog(instance: Instance): void {
+    const dialogRef = this.dialog.open(EditDialogComponent, {
+      data: { ...instance } // Kopie der Daten übergeben
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.formService.updateCustomer(result).subscribe(
+          (response) => {
+            console.log('Kunde erfolgreich aktualisiert:', response);
+            // Aktualisiere die Anzeige
+            const index = this.dataSource.findIndex((i) => i.hostname === result.hostname);
+            if (index !== -1) {
+              this.dataSource[index] = result;
+            }
+          },
+          (error) => {
+            console.error('Fehler beim Aktualisieren der Daten:', error);
+          }
+        );
+      }
+    });
+  }*/
+
+
+
   /*openDeactivateDialog(instance: Instance): void {
     const dialogRef = this.dialog.open(DeactivateDialogComponent, {
       data: instance, // Übergabe der Instanzdaten
@@ -162,12 +180,16 @@ export class HomeComponent implements OnInit {
     });
   }*/
 
-  openContextMenu(event: MouseEvent, instance: Instance): void {
+
+
+  /*openContextMenu(event: MouseEvent, instance: Instance): void {
     event.preventDefault(); // Verhindert das Standard-Kontextmenü des Browsers
     this.menuTrigger.menuData = { item: instance }; // Setzt die aktuellen Daten für das Menü
     this.menuTrigger.openMenu(); // Öffnet das Kontextmenü
   }
-  @ViewChild(MatMenuTrigger) menuTrigger!: MatMenuTrigger;
+  */
+
+
 
   /*
   displayedColumns: string[] = ['Status', 'Erstellungsdatum', 'Kundenname', 'Hostname', 'E-Mail Adresse', 'Actions'];

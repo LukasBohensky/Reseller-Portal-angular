@@ -84,12 +84,6 @@ export class UserService {
     this.router.navigate(['/home']);
   }
 
- /* logout() {
-    localStorage.removeItem('authToken');
-    this.isLoggedInSubject.next(false);
-    this.sharedService.setSharedVariable(false); // 🔥 Logout-Status global setzen
-    this.router.navigate(['/login']);
-  }*/
   logout(): void {
     this.http.post('http://localhost:3000/logout', {}, { withCredentials: true }).subscribe({
       next: () => {
