@@ -29,6 +29,12 @@ export class FormService {
     }); // Daten abrufen
   }
 
+  getCustomersDisabled(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + '/disabled', {
+      withCredentials: true
+    }); // Daten abrufen
+  }
+
   updateCustomer(data: any): Observable<any> {
     const apiUrl = 'http://localhost:3000/update-customer';
     return this.http.put(apiUrl, data, {
@@ -36,10 +42,34 @@ export class FormService {
     });
   }
 
-  deleteCustomer(domainName: string): Observable<any> {
-    const apiUrl = `http://localhost:3000/delete-customer/${domainName}`;
+  activateCustomer(domainName: string): Observable<any> {
+    const apiUrl = `http://localhost:3000/customer/${domainName}/activate`;
     console.log('Aufruf der URL:', apiUrl);
-    return this.http.delete(apiUrl, {
+    return this.http.get(apiUrl, {
+      withCredentials: true
+    });
+  }
+
+  deactivateCustomer(domainName: string): Observable<any> {
+    const apiUrl = `http://localhost:3000/customer/${domainName}/deactivate`;
+    console.log('Aufruf der URL:', apiUrl);
+    return this.http.get(apiUrl, {
+      withCredentials: true
+    });
+  }
+
+  deleteCustomer(domainName: string): Observable<any> {
+    const apiUrl = `http://localhost:3000/customer/${domainName}/delete`;
+    console.log('Aufruf der URL:', apiUrl);
+    return this.http.get(apiUrl, {
+      withCredentials: true
+    });
+  }
+  
+  startPayment(domainName: string): Observable<any> {
+    const apiUrl = `http://localhost:3000/customer/${domainName}/start-payment`;
+    console.log('Aufruf der URL:', apiUrl);
+    return this.http.get(apiUrl, {
       withCredentials: true
     });
   }

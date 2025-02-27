@@ -1,0 +1,15 @@
+<!-- De-/Aktivieren Dialog -->
+<div style="margin: 20px;" *ngIf="data.action == 'activate' || data.action == 'deactivate' || data.action == 'pay' || data.action == 'delete'">
+    <h1 mat-dialog-title>{{ data.component.title }}</h1>
+    <div mat-dialog-content>
+        <p>Möchten Sie die Instanz mit dem Hostnamen "{{data.instance.domainName}}" wirklich {{ data.component.action }}?</p>
+        <mat-form-field>
+        <mat-label>Hostname eingeben</mat-label>
+        <input matInput [(ngModel)]="enteredHostname" (ngModelChange)="validateHostname()" required>
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="submit()" [disabled]="!isHostnameValid">Bestätigen</button>
+        <button mat-button (click)="abort()">Abbrechen</button>
+    </div>
+</div>

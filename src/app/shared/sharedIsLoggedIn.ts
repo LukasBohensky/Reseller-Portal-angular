@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 export interface User{
   email: string;
@@ -18,6 +19,8 @@ export class SharedService {
   sharedVariable$ = this.sharedVariableSubject.asObservable();
 
   user$ = this.user.asObservable();
+
+  constructor(private http: HttpClient) {}
 
   // Methode zum Setzen der Variable
   setSharedVariable(value: boolean): void {
@@ -42,4 +45,19 @@ export class SharedService {
   getSharedVariable(): boolean {
     return this.sharedVariableSubject.getValue();
   }
+
+  checkLogin() {
+
+    this.http.get('http://localhost:3000/get-user-email', {withCredentials: true}).subscribe((res: any) => {
+
+      if(res.userEmail && res.userEmail != '') {
+
+        this.setSharedVariable(true);
+  
+      }
+
+    });
+
+  }
+
 }
