@@ -83,7 +83,7 @@ export class UserService {
     this.sharedService.setSharedVariable(true);  // 🔥 Login-Status global setzen
     this.router.navigate(['/home']);
   }
-
+  
  /* logout() {
     localStorage.removeItem('authToken');
     this.isLoggedInSubject.next(false);

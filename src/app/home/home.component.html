@@ -98,14 +98,9 @@
             <ng-container matColumnDef="Actions">
               <th mat-header-cell *matHeaderCellDef> Actions </th>
               <td mat-cell *matCellDef="let instance">
-                <button mat-button [matMenuTriggerFor]="menu1" (click)="openContextMenu($event, instance)">
+                <button mat-button [matMenuTriggerFor]="menu_instance" [matMenuTriggerData]="{instance: instance}">
                   ⋮
                 </button>
-                <mat-menu #menu1="matMenu">
-                  <button mat-menu-item (click)="openDetailsDialog(instance)">Details</button>
-                  <button mat-menu-item (click)="openEditDialog(instance)">Edit</button>
-                  <button mat-menu-item (click)="openDeactivateDialog(instance)">Deactivate</button>
-                </mat-menu>
               </td>
             </ng-container>
   
@@ -155,14 +150,9 @@
             <ng-container matColumnDef="Actions">
               <th mat-header-cell *matHeaderCellDef> Actions </th>
               <td mat-cell *matCellDef="let instance">
-                <button mat-button [matMenuTriggerFor]="menu2" (click)="openContextMenu($event, instance)">
+                <button mat-button [matMenuTriggerFor]="menu_instance" [matMenuTriggerData]="{instance: instance}">
                   ⋮
                 </button>
-                <mat-menu #menu2="matMenu">
-                  <button mat-menu-item (click)="openDetailsDialog(instance)">Details</button>
-                  <button mat-menu-item (click)="openEditDialog(instance)">Edit</button>
-                  <button mat-menu-item (click)="openDeactivateDialog(instance)">Deactivate</button>
-                </mat-menu>
               </td>
             </ng-container>
     
@@ -173,4 +163,16 @@
       </div>
     </div>
   </div>
+  
+  <!-- Context Menu -->
+  <mat-menu #menu_instance="matMenu">
+    <ng-template matMenuContent let-instance="instance">
+      <button mat-menu-item (click)="openDetailsDialog(instance)">Details</button>
+      <button *ngIf="instance.status == 'created'" mat-menu-item (click)="openDialog(instance, 'pay')">Pay</button>
+      <button *ngIf="instance.status == 'created'" mat-menu-item (click)="openEditDialog(instance)">Edit</button>
+      <button *ngIf="instance.status == 'completed'" mat-menu-item (click)="openDialog(instance, 'deactivate')">Deactivate</button>
+      <button *ngIf="instance.status == 'created'" mat-menu-item (click)="openDialog(instance, 'delete')">Löschen</button>
+      <button *ngIf="instance.status == 'disabled'" mat-menu-item (click)="openDialog(instance, 'activate')">Activate</button>
+    </ng-template>
+  </mat-menu>
   

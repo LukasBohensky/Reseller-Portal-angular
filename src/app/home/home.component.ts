@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DetailsDialogComponent } from '../DialogComponents/DetailsDialog';
 import { EditDialogComponent } from '../DialogComponents/EditDialog';
 import { DeactivateDialogComponent } from '../DialogComponents/DeactivateDialog';
+import { InstanceDialogComponent } from '../components/instance-dialog/instance-dialog.component';
 import { MatMenu } from '@angular/material/menu';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { FormService } from '../services/FormServices';
@@ -119,32 +120,52 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  openDialog(instance: any, action: String) {
 
-  openDeactivateDialog(instance: any): void {
+    let component = {title: '', action: ''};
+
+    switch(action) {
+      case 'activate': component.title = 'Aktivieren'; component.action = 'aktivieren'; break;
+      case 'deactivate': component.title = 'Deaktivieren'; component.action = 'aktivieren'; break;
+      case 'pay': component.title = 'Bezahlung'; component.action = 'bezahlen'; break;
+      case 'delete': component.title = 'Löschen'; component.action = 'löschen'; break;
+    }
+
     console.log('Instance übergeben an Dialog:', instance);
 
-    const dialogRef = this.dialog.open(DeactivateDialogComponent, {
-      data: instance, // Übergabe der Instanzdaten
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        console.log('Lösche Datensatz mit domainName:', instance.domainName);
-        this.formService.deleteCustomer(instance.domainName).subscribe(
-          (response) => {
-            console.log('Datensatz erfolgreich gelöscht:', response);
-
-            // Lokale Datenquelle aktualisieren
-            this.getCustomers();
-          },
-          (error) => {
-            console.error('Fehler beim Löschen des Datensatzes:', error);
-          }
-        );
+    const dialogRef = this.dialog.open(InstanceDialogComponent, {
+      data: {
+        instance,
+        component,
+        action,
       }
     });
-  }
 
+    dialogRef.afterClosed().subscribe(async (result) => {
+
+      if (result) {
+        let result = null;
+        console.log('Datensatz mit domainName: ' + instance.domainName + ' ' + component.action);
+        
+        switch(action) {
+          case 'activate': result = await this.formService.activateCustomer(instance.domainName).toPromise(); break;
+          case 'deactivate': result = await this.formService.deactivateCustomer(instance.domainName).toPromise(); break;
+          case 'pay': result = await this.formService.startPayment(instance.domainName).toPromise(); break;
+          case 'delete': result = await this.formService.deleteCustomer(instance.domainName).toPromise(); break;
+        }
+
+        if(result.status == 'ok') {
+          console.log('API Antwort:', result);
+          this.getCustomers();
+        } else {
+          console.error('Fehler beim ändern des Datensatz mit domainName: ' + instance.domainName);
+        }
+
+      }
+    });
+    
+  }
+  
   openContextMenu(event: MouseEvent, instance: Instance): void {
     event.preventDefault(); // Verhindert das Standard-Kontextmenü des Browsers
     this.menuTrigger.menuData = { item: instance }; // Setzt die aktuellen Daten für das Menü
