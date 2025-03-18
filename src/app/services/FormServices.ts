@@ -35,6 +35,12 @@ export class FormService {
     }); // Daten abrufen
   }
 
+  getCustomersCompleted(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + '/completed', {
+      withCredentials: true
+    }); // Daten abrufen
+  }
+
   updateCustomer(data: any): Observable<any> {
     const apiUrl = 'http://localhost:3000/update-customer';
     return this.http.put(apiUrl, data, {
@@ -65,7 +71,7 @@ export class FormService {
       withCredentials: true
     });
   }
-  
+
   startPayment(domainName: string): Observable<any> {
     const apiUrl = `http://localhost:3000/customer/${domainName}/start-payment`;
     console.log('Aufruf der URL:', apiUrl);

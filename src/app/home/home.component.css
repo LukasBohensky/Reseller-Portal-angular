@@ -81,39 +81,80 @@
   }*/
 
   /* Dashboard Container */
+
+.red-icon mat-icon {
+  color: red;
+}
+
+.green-icon mat-icon {
+  color: green;
+}
+
+
+/*
 .menu {
-  background-color: #fff; /* Weißer Hintergrund */
-  border: 1px solid #ccc; /* Dezente Umrandung */
-  border-radius: 4px; /* Abgerundete Ecken */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Leichter Schatten */
-  padding: 8px 0; /* Vertikaler Abstand */
-  min-width: 150px; /* Minimale Breite */
-  z-index: 1000; /* Über anderen Elementen */
+  background-color: #fff; !* Weißer Hintergrund *!
+  border: 1px solid #ccc; !* Dezente Umrandung *!
+  border-radius: 4px; !* Abgerundete Ecken *!
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); !* Leichter Schatten *!
+  padding: 8px 0; !* Vertikaler Abstand *!
+  min-width: 150px; !* Minimale Breite *!
+  z-index: 1000; !* Über anderen Elementen *!
 }
 
 .menu button {
-  width: 100%; /* Volle Breite für Buttons */
-  padding: 8px 16px; /* Innenabstand */
-  background: none; /* Kein Hintergrund */
-  border: none; /* Keine Ränder */
-  text-align: left; /* Text linksbündig */
-  font-size: 14px; /* Standard-Schriftgröße */
-  cursor: pointer; /* Zeiger als Cursor */
-  transition: background-color 0.2s ease; /* Weicher Hover-Effekt */
+  width: 100%; !* Volle Breite für Buttons *!
+  padding: 8px 16px; !* Innenabstand *!
+  background: none; !* Kein Hintergrund *!
+  border: none; !* Keine Ränder *!
+  text-align: left; !* Text linksbündig *!
+  font-size: 14px; !* Standard-Schriftgröße *!
+  cursor: pointer; !* Zeiger als Cursor *!
+  transition: background-color 0.2s ease; !* Weicher Hover-Effekt *!
 }
+*/
 
-.menu button:hover {
-  background-color: #f0f0f0; /* Hintergrundfarbe beim Hover */
+/*.menu button:hover {
+  background-color: #f0f0f0; !* Hintergrundfarbe beim Hover *!
 }
 
 .menu button:active {
-  background-color: #e0e0e0; /* Aktiver Zustand */
+  background-color: #e0e0e0; !* Aktiver Zustand *!
+}*/
+
+.mat-column-Status {
+  width: 100px;
+}
+
+.mat-column-Erstellungsdatum {
+  width: 200px;
+}
+
+.mat-column-Kundenname {
+  width: 150px;
+}
+
+.mat-column-Hostname {
+  width: 250px;
+}
+
+.mat-column-E-Mail-Adresse {
+  width: 200px;
+}
+
+.mat-column-Actions {
+  width: 250px;
+}
+
+table {
+  width: 100%;
+  table-layout: fixed;
 }
 
 .dashboard-container {
   display: flex;
   justify-content: space-between;
-  gap: 20px;
+  gap: 20px !important;
   padding: 20px;
   flex-wrap: wrap; /* Responsive: Stacks on small screens */
 }
@@ -121,7 +162,7 @@
 /* Individual Boxes */
 .dashboard-box {
   flex: 1;
-  min-width: 48%;
+  min-width: 51%;
   background: white;
   padding: 20px;
   border-radius: 10px;
@@ -131,7 +172,7 @@
 /* Box Title */
 .dashboard-title {
   font-size: 18px;
-  font-weight: bold;
+  /*font-weight: bold;*/
   margin-bottom: 15px;
   color: #333;
 }
@@ -139,7 +180,7 @@
 /* Table Container */
 .table-container {
   border-radius: 8px;
-  overflow: hidden; /* Prevents unwanted spacing */
+  /*overflow: hidden; /* Prevents unwanted spacing */
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
 }
 
@@ -167,18 +208,18 @@
   background: rgba(33, 150, 243, 0.1);
 }
 
-/* Action Menu Button */
+/* Action Menu Button
 .mat-button {
   background: transparent;
   font-size: 18px;
   padding: 5px;
   border: none;
   cursor: pointer;
-}
+}*/
 
-.mat-button:hover {
+/*.mat-button:hover {
   background: rgba(0, 0, 0, 0.05);
-}
+}*/
 
 /* Responsive Fix */
 @media (max-width: 1024px) {

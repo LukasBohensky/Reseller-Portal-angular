@@ -1,5 +1,11 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogActions,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle
+} from '@angular/material/dialog';
 import { MatFormField } from '@angular/material/form-field';
 import { MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
@@ -9,10 +15,10 @@ import { MatButton } from '@angular/material/button';
 @Component({
   selector: 'app-edit-dialog',
   standalone: true,
-  imports: [MatFormField, MatLabel, MatInput, FormsModule, MatButton],
+  imports: [MatFormField, MatLabel, MatInput, FormsModule, MatButton, MatDialogTitle, MatDialogContent, MatDialogActions],
   template: `
   <div style="margin: 20px;">
-    <h1 mat-dialog-title>Bearbeiten</h1>
+    <h2 mat-dialog-title>Bearbeiten</h2>
     <div mat-dialog-content>
       <mat-form-field>
         <mat-label>Kundenname</mat-label>

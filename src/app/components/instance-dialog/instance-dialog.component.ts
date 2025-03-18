@@ -1,6 +1,12 @@
 import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogActions,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle
+} from '@angular/material/dialog';
 import { MatFormField } from '@angular/material/form-field';
 import { MatLabel } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
@@ -10,7 +16,7 @@ import { MatButton } from '@angular/material/button';
 @Component({
   selector: 'app-instance-dialog',
   standalone: true,
-  imports: [CommonModule, MatFormField, MatButton, MatLabel, FormsModule, MatInputModule],
+  imports: [CommonModule, MatFormField, MatButton, MatLabel, FormsModule, MatInputModule, MatDialogTitle, MatDialogContent, MatDialogActions],
   templateUrl: './instance-dialog.component.html',
   styleUrl: './instance-dialog.component.css'
 })
@@ -28,13 +34,13 @@ export class InstanceDialogComponent {
   }
 
   submit() {
-    
+
     this.dialogRef.close(true);
 
   }
 
   abort() {
-    
+
     this.dialogRef.close(false);
 
   }

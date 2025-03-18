@@ -1,6 +1,6 @@
 import {MatCommonModule} from '@angular/material/core';
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {Router, RouterOutlet} from '@angular/router';
 import { SidenavComponent } from "./sidenav/sidenav.component";
 import { RouterModule } from '@angular/router';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -21,9 +21,9 @@ import { FooterComponent } from './footer/footer.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, FooterComponent, SidenavComponent, RouterModule, 
-    MatTooltipModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, 
-    MatButtonModule, MatCardModule, MatCommonModule, MatIconModule, CommonModule, 
+  imports: [RouterOutlet, FooterComponent, SidenavComponent, RouterModule,
+    MatTooltipModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule,
+    MatButtonModule, MatCardModule, MatCommonModule, MatIconModule, CommonModule,
     LoginComponent, HttpClientModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
@@ -32,8 +32,13 @@ export class AppComponent {
   title = 'Reseller Portal';
   isLogin: boolean = false;
 
-  constructor(private sharedService: SharedService) {}
+  //constructor(private sharedService: SharedService) {}
 
+  constructor(public router: Router, private sharedService: SharedService) {
+    this.sharedService.sharedVariable$.subscribe(value => {
+      this.isLogin = value;
+    });
+  }
 
   ngOnInit(): void {
     this.sharedService.sharedVariable$.subscribe(value => {

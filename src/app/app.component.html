@@ -1,4 +1,4 @@
-<div class="content">
+<!--<div class="content">
     <div *ngIf="!isLogin">
       <app-login></app-login>
       passwort muss ein klein ein groß buchstabe enthalten<br>
@@ -11,4 +11,16 @@
       <app-sidenav></app-sidenav>
       <router-outlet></router-outlet>
     </div>
+</div>-->
+
+
+<div class="content">
+  <div *ngIf="!isLogin">
+    <router-outlet></router-outlet>
+  </div>
+
+  <div *ngIf="isLogin" class="container">
+    <app-sidenav></app-sidenav>
+    <router-outlet></router-outlet>
+  </div>
 </div>

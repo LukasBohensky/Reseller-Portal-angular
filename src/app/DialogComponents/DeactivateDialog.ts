@@ -1,5 +1,11 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogActions,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle
+} from '@angular/material/dialog';
 import { MatFormField } from '@angular/material/form-field';
 import { MatLabel } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
@@ -10,10 +16,10 @@ import { MatButton } from '@angular/material/button';
 @Component({
   selector: 'app-deactivate-dialog',
   standalone: true,
-  imports: [MatFormField, MatButton, MatLabel, FormsModule, MatInputModule],
+  imports: [MatFormField, MatButton, MatLabel, FormsModule, MatInputModule, MatDialogTitle, MatDialogContent, MatDialogActions],
   template: `
   <div style="margin: 20px;">
-      <h1 mat-dialog-title>Deaktivieren</h1>
+      <h2 mat-dialog-title>Deaktivieren</h2>
       <div mat-dialog-content>
         <p>Möchten Sie die Instanz mit dem Hostnamen "{{data.domainName}}" wirklich deaktivieren?</p>
         <mat-form-field>

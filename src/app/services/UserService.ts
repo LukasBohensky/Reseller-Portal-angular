@@ -62,6 +62,7 @@ export class UserService {
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
   private userEmailSubject = new BehaviorSubject<string>(''); // Reaktive Variable für UI-Updates
   userEmail$ = this.userEmailSubject.asObservable();
+  private userPassword: string = ''; // Store the user's password
 
   constructor(private router: Router, private sharedService: SharedService, private http: HttpClient) {}
 
@@ -77,8 +78,21 @@ export class UserService {
       });
   }
 
-  login(token: string) {
+  fetchUserPassword(): void {
+    this.http.get<{ password: string }>('http://localhost:3000/get-user-password', { withCredentials: true })
+      .subscribe({
+        next: (response) => {
+          this.userPassword = response.password; // Set the password
+        },
+        error: () => {
+          console.warn('Error fetching user password.');
+        }
+      });
+  }
+
+  login(token: string, password: string) {
     localStorage.setItem('authToken', token);
+    this.userPassword = password; // Store the password
     this.isLoggedInSubject.next(true);
     this.sharedService.setSharedVariable(true);  // 🔥 Login-Status global setzen
     this.router.navigate(['/home']);
@@ -96,6 +110,10 @@ export class UserService {
       },
       error: () => console.warn('Logout fehlgeschlagen.')
     });
+  }
+
+  getPassword(): string {
+    return this.userPassword;
   }
 
   isLoggedIn(): boolean {

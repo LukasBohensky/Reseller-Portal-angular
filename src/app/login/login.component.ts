@@ -10,7 +10,8 @@ import { SharedService } from '../shared/sharedIsLoggedIn';
 import { CommonModule } from '@angular/common';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {ChangeDetectionStrategy, signal} from '@angular/core';
-import { Router } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
@@ -18,7 +19,7 @@ const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d
   selector: 'app-login',
   standalone: true,
   imports: [
-    MatFormFieldModule, MatInputModule, MatCardModule, MatButtonModule, ReactiveFormsModule, MatIconModule, CommonModule,
+    MatFormFieldModule, MatInputModule, MatCardModule, MatButtonModule, ReactiveFormsModule, MatIconModule, CommonModule, RouterLink, RouterModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './login.component.html',
@@ -29,7 +30,7 @@ export class LoginComponent implements OnInit{
   email: string = '';
   password: string = '';
   isPasswordValid: boolean = false;
-
+  hide = signal(true);
 
   constructor(private sharedService: SharedService, private http: HttpClient, private router: Router) { }
 
@@ -39,8 +40,6 @@ export class LoginComponent implements OnInit{
       console.log('isLogin Status in der Login-Komponente:', value);
     });
   }
-
-  hide = signal(true);
 
   clickEvent(event: MouseEvent) {
     this.hide.set(!this.hide());
@@ -66,7 +65,7 @@ export class LoginComponent implements OnInit{
         }
     }
 
-  loginUser(event: Event): void {
+  /*loginUser(event: Event): void {
     event.preventDefault();
     if (this.isPasswordValid) {
       const loginData = {
@@ -89,16 +88,35 @@ export class LoginComponent implements OnInit{
     }else {
       console.log('Passwort ungültig');
     }
+  }*/
+  loginUser(event: Event): void {
+    event.preventDefault();
+    if (this.isPasswordValid) {
+      const loginData = {
+        email: this.email,
+        password: this.password,
+      };
 
-
-
-    /*if (this.isPasswordValid) {
-      this.sharedService.setSharedVariable(true);
-      console.log('Der Benutzer hat sich erfolgreich eingeloggt.');
+      this.http.post('http://localhost:3000/login', loginData, { withCredentials: true }).subscribe({
+        next: (response: any) => {
+          console.log('Login erfolgreich:', response);
+          if (response.twoFactorRequired) {
+            this.router.navigate(['/two-factor-auth']);
+          } else {
+            this.sharedService.setSharedVariable(true);
+            this.router.navigate(['/home']);
+          }
+        },
+        error: (error) => {
+          console.error('Login fehlgeschlagen:', error);
+          alert('Login fehlgeschlagen!');
+        }
+      });
     } else {
-      console.log('Das Passwort ist ungültig, der Benutzer kann sich nicht einloggen.');
-    }*/
+      console.log('Passwort ungültig');
+    }
   }
+
 
   //protected readonly event = event;
 }

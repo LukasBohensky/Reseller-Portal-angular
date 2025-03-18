@@ -15,6 +15,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
 import { MatButton } from '@angular/material/button';
 import {CdkMenu, CdkMenuItem, CdkContextMenuTrigger} from '@angular/cdk/menu';
+import { MatIconModule } from '@angular/material/icon';
+import {MatTooltip} from "@angular/material/tooltip";
 
 
 
@@ -36,13 +38,13 @@ export interface Instance {
   standalone: true,
   templateUrl: './home.component.html',
   imports: [CommonModule, MatMenuTrigger,
-    MatTableModule, MatMenuModule, MatMenu, MatButton,
-    CdkContextMenuTrigger, CdkMenu, CdkMenuItem],
+    MatTableModule, MatMenuModule, MatMenu, MatButton, CdkMenu, CdkMenuItem, MatIconModule, MatTooltip],
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
   dataSource: any[] = [];
   dataSource_disabled: any[] = [];
+  dataSource_completed: any[] = [];
   displayedColumns: string[] = [
     'Status',
     'Erstellungsdatum',
@@ -66,9 +68,11 @@ export class HomeComponent implements OnInit {
 
       let customers = await this.formService.getCustomers().toPromise();
       let customersDisabled = await this.formService.getCustomersDisabled().toPromise();
+      let customersCompleted = await this.formService.getCustomersCompleted().toPromise();
 
       this.dataSource = customers as any;
       this.dataSource_disabled = customersDisabled as any;
+      this.dataSource_completed = customersCompleted as any;
 
     } catch(err) {
 

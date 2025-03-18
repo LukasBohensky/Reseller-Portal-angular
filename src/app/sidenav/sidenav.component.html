@@ -34,15 +34,16 @@
     <div class="user-info">
       <!-- matMenuTriggerFor ist eine Referenz auf einen Trigger der spaeter
            im Code aufgerufen werden kann-->
-      <button mat-button [matMenuTriggerFor]="userMenu">
+      <!--<button mat-button [matMenuTriggerFor]="userMenu">
         <mat-icon>menu</mat-icon>
-        {{userEmail}}
-      </button>
-      <!-- -->
+
+      </button>-->
+      Hallo!, {{userEmail}}
+      <!--
       <mat-menu #userMenu="matMenu">
         <button mat-menu-item>Profile</button>
         <button mat-menu-item>Settings</button>
-      </mat-menu>
+      </mat-menu>-->
     </div>
 
     <!-- Navigation List -->
@@ -57,10 +58,10 @@
         <span class="v-align-middle">Produkt</span>
       </app-sidenav-links>
 
-      <app-sidenav-links routerLink="/settings">
+      <!--<app-sidenav-links routerLink="/settings">
         <mat-icon class="v-align-middle">settings</mat-icon>
         <span class="v-align-middle">Einstellungen</span>
-      </app-sidenav-links>
+      </app-sidenav-links>-->
 
         <app-sidenav-links (click)="confirmLogout()">
           <mat-icon class="v-align-middle">logout</mat-icon>
